@@ -12,19 +12,19 @@ SHELL ["/bin/bash", "-c"]
 ###############################################################################
 
 
-ENV UBUNTU_KEYSERVER  keyserver.ubuntu.com
+ENV UBUNTU_KEYSERVER        keyserver.ubuntu.com
 
-ENV NODE_KEY          68576280
-ENV NODE_MAIN_VERSION 6
+ENV NODE_KEY                68576280
+ENV NODE_MAIN_VERSION       6
 
-ENV YARN_VERSION      0.27.5
-ENV YARN_MAIN_DIR     /opt/yarn
-ENV YARN_BIN          ${YARN_MAIN_DIR}/node_modules/yarn/bin/yarn
+ENV YARN_VERSION            0.27.5
+ENV YARN_MAIN_DIR           /opt/yarn
+ENV YARN_BIN                ${YARN_MAIN_DIR}/node_modules/yarn/bin/yarn
 
-ENV PANDOC_VERSION    1.19.2.1
-ENV PANDOC_URL        https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb
+ENV PANDOC_VERSION          1.19.2.1
+ENV PANDOC_URL              https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb
 
-ENV TOUCAN_ENV        /etc/toucan_env
+ENV TOUCAN_BUILD_ENV        /etc/toucan_build_env
 
 ###############################################################################
 #			Pre Dependencies Installlation
@@ -70,7 +70,8 @@ RUN	npm install \
 
 RUN	wget 	${PANDOC_URL} \
 		-O /tmp/pandoc.deb \
-	&& dpkg -i /tmp/pandoc.deb
+	&& dpkg -i /tmp/pandoc.deb \
+	&& rm /tmp/pandoc.deb
 
 
 ###############################################################################
@@ -78,4 +79,4 @@ RUN	wget 	${PANDOC_URL} \
 ###############################################################################
 
 
-RUN	echo "YARN_BIN=${YARN_BIN}" >> ${TOUCAN_ENV}
+RUN	echo "YARN_BIN=${YARN_BIN}" >> ${TOUCAN_BUILD_ENV}
